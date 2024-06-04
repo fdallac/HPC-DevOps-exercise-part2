@@ -1,16 +1,14 @@
 Bootstrap: docker
 From: ubuntu:18.04
 
-# %post
-#     # Set the working directory inside the container
-#     mkdir -p /app
-#     cd /app
-
-#     # Copy files into container
-#     cp 
-    
-    
-#     #apt-get update && apt-get install -y netcat
+%post
+    apt-get update && 
+    apt-get upgrade -y && 
+    apt-get autoremove -y &&
+    apt-get clean -y &&
+    apt-get -y install g++ cmake libopenmpi-dev &&
+    apt-get autoremove -y &&
+    apt-get clean -y
     
 
 %files
@@ -28,7 +26,10 @@ From: ubuntu:18.04
 %runscript
     echo "Container was created."
     build.sh
+    # test
     build/test_multiplication
+    # main
+    mpirun -np 2 main
 
 
 # %test
