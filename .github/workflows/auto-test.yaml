@@ -25,4 +25,4 @@ jobs:
         run: cmake --build ${{ github.workspace }}/build
       - name: Run unit tests
         working-directory: ${{ github.workspace }}/build
-        run: build/test_multiplication
+        run: test_multiplication
