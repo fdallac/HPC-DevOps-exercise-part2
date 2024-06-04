@@ -16,7 +16,7 @@ jobs:
       - name: Create folder
         run: mkdir -p build
       - name: Configure CMake
-        run: cmake -B -S ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+        run: cmake -B ${{ github.workspace }}/build -S -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
       - name: CMake build
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
       - name: Run unit tests
