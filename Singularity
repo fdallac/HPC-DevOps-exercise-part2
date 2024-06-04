@@ -9,8 +9,11 @@ From: ubuntu:18.04
     apt-get -y install g++ cmake libopenmpi-dev &&
     apt-get autoremove -y &&
     apt-get clean -y
+
     # build
-    build.sh
+    mkdir -p build && cd build
+    cmake ..
+    cmake --build .
     
 
 %files
