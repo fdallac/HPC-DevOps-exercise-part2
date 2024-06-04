@@ -9,6 +9,8 @@ From: ubuntu:18.04
     apt-get -y install g++ cmake libopenmpi-dev &&
     apt-get autoremove -y &&
     apt-get clean -y
+    # build
+    build.sh
     
 
 %files
@@ -16,16 +18,16 @@ From: ubuntu:18.04
     matrixB.txt
     CMakeLists.txt
     build.sh
-    src/ src/
-    include/ include/
-    lib/ lib/
-    googletest/ googletest/
-    test/ test/
+    ./src /src
+    ./include /include
+    ./lib /lib
+    ./googletest /googletest
+    ./test /test
 
 
 %runscript
     echo "Container was created."
-    build.sh
+    
     # test
     build/test_multiplication
     # # main
