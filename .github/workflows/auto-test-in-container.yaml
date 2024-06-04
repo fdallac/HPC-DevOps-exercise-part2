@@ -57,7 +57,7 @@ jobs:
           keepgoing: ${{ env.keepgoing }}
         run: |
             if [[ "${keepgoing}" == "true" ]]; then
-                echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login oras://ghcr.io -u ${{ github.actor }} --password-stdin
+                echo ${{ secrets.GITHUB_TOKEN }} | singularity login -u ${{ github.actor }} --password-stdin oras://ghcr.io 
                 singularity push container.sif oras://ghcr.io/${GITHUB_REPOSITORY}:${tag}
             fi
 
