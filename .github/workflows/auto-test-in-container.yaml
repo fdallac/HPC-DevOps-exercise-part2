@@ -1,4 +1,4 @@
-name: Automated testing on push by Github Actions
+name: Building Container, Deployment and Automated testing
 run-name: ${{ github.actor }} is testing matrix multiplication inside a container...
 on: 
   push:
@@ -57,8 +57,8 @@ jobs:
           keepgoing: ${{ env.keepgoing }}
         run: |
             if [[ "${keepgoing}" == "true" ]]; then
-                echo ${{ secrets.GITHUB_TOKEN }} | singularity login -u ${{ github.actor }} --password-stdin oras://ghcr.io 
-                singularity push container.sif oras://ghcr.io/${GITHUB_REPOSITORY}:${tag}
+                echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin docker://ghcr.io 
+                singularity push container.sif docker://ghcr.io/${GITHUB_REPOSITORY}:${tag}
             fi
 
     
