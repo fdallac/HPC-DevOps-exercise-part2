@@ -37,7 +37,7 @@ jobs:
         run: |
           ls 
           if [ -f "${{ matrix.recipe }}" ]; then
-            sudo -E singularity build container.sif ${{ matrix.recipe }}
+            singularity build matrix-mult.sif ${{ matrix.recipe }}
             tag=$(echo "${recipe/Singularity\./}")
             if [ "$tag" == "Singularity" ]; then
                 tag=latest
@@ -58,7 +58,7 @@ jobs:
         run: |
             if [[ "${keepgoing}" == "true" ]]; then
                 echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin docker://ghcr.io 
-                singularity push container.sif docker://ghcr.io/${GITHUB_REPOSITORY}:${tag}
+                singularity push matrix-mult.sif docker://ghcr.io/${GITHUB_REPOSITORY}:${tag}
             fi
 
     
