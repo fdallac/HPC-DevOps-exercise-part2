@@ -1,5 +1,5 @@
-name: Building Container, Deployment and Automated testing
-run-name: ${{ github.actor }} is testing matrix multiplication on CINECA cluster...
+name: Build Container, Deploy on CINECA Cluster and Run
+run-name: ${{ github.actor }} is deploying matrix multiplication on CINECA cluster...
 on: 
   push:
     branches:

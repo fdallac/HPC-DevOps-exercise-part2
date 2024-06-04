@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu:18.04
+From: debian:bookworm-slim
 
 %files
     matrixA.txt /cnt/matrixA.txt
@@ -12,6 +12,7 @@ From: ubuntu:18.04
     ./test /cnt/test
 
 %post
+    # install openmpi
     apt-get update && 
     apt-get upgrade -y && 
     apt-get autoremove -y &&
@@ -30,8 +31,8 @@ From: ubuntu:18.04
 %runscript
     echo "Container was created."
     
-    # test
     cd cnt
+    # run test
     build/test_multiplication
     # # main
     # mpirun -np 2 main

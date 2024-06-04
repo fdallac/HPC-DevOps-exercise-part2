@@ -1,4 +1,4 @@
-name: Building Container, Deployment and Automated testing
+name: Build Container, Deploy and Automate Testing
 run-name: ${{ github.actor }} is testing matrix multiplication inside a container...
 on: 
   push:

@@ -1,4 +1,4 @@
-name: Automated testing on push by Github Actions
+name: Automate testing on push by Github Actions
 run-name: ${{ github.actor }} is testing matrix multiplication...
 on: 
   push:
