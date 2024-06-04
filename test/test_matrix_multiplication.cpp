@@ -5,8 +5,10 @@
 #include <gtest/gtest.h>
 
 
-// ######################### Source code of multiplyMatrices in src/matrix_mult
 
+// utility function to generate a matrix of given dimensions 
+// where every element is zero
+// to be used for test cases
 std::vector<std::vector<int>> generateZeroMatrix(int rows, int cols) {
     // Create a matrix with the given sizes, initialized with zeros
     std::vector<std::vector<int>> matrix(rows, std::vector<int>(cols, 0));
@@ -14,6 +16,9 @@ std::vector<std::vector<int>> generateZeroMatrix(int rows, int cols) {
     return matrix;
 }
 
+// utility function to generate a squared identity matrix of given dimension 
+// where every element is zero but the unitary diagonal
+// to be used for test cases
 std::vector<std::vector<int>> generateIdentityMatrix(int size) {
     // Create a square matrix with the given size
     std::vector<std::vector<int>> matrix(size, std::vector<int>(size, 0));
@@ -26,7 +31,9 @@ std::vector<std::vector<int>> generateIdentityMatrix(int size) {
     return matrix;
 }
 
-
+// utility function to generate a random matrix of given dimensions 
+// where elements are integers within the interval [0, 100]
+// to be used for test cases
 std::vector<std::vector<int>> generateRandomMatrix(int rows, int cols) {
     // Initialize the random number generator with a random seed
     std::random_device rd;
@@ -48,7 +55,7 @@ std::vector<std::vector<int>> generateRandomMatrix(int rows, int cols) {
     return matrix;
 }
 
-
+// Base test case
 TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
     std::vector<std::vector<int>> A = {
         {1, 2, 3},
@@ -71,41 +78,8 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
     ASSERT_EQ(C, expected) << "Matrix multiplication test failed! :((((";
 }
 
-
-// TEST(MatrixMultiplicationTest, TestMultiplyMatrixByIdentity_old) {
-//     std::vector<std::vector<int>> A = {
-//         {1, 2},
-//         {3, 4}
-//     };
-//     std::vector<std::vector<int>> I = {
-//         {1, 0},
-//         {0, 1}
-//     };
-//     std::vector<std::vector<int>> C(2, std::vector<int>(2, 2));
-
-//     multiplyMatrices(A, I, C, 2, 2, 2);
-
-//     ASSERT_EQ(C, A) << "Matrix multiplication-by-identity test failed! :((((";
-// }
-
-
-// TEST(MatrixMultiplicationTest, TestMultiplyMatrixByZero_old) {
-//     std::vector<std::vector<int>> A = {
-//         {1, 2},
-//         {3, 4}
-//     };
-//     std::vector<std::vector<int>> O = {
-//         {0, 0},
-//         {0, 0}
-//     };
-//     std::vector<std::vector<int>> C(2, std::vector<int>(2, 0));
-
-//     multiplyMatrices(A, O, C, 2, 2, 2);
-
-//     ASSERT_EQ(C, O) << "Matrix multiplication-by-zero test failed! :((((";
-// }
-
-
+// Test: multiplication of a 5x2 random matrix by a 2x4 zero matrix
+// Expected result: 5x4 zero matrix 
 TEST(MatrixMultiplicationTest, TestMultiplyMatrixByZero_0) {
     int nr_A = 5;
     int nc_A = 2;
@@ -121,6 +95,8 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrixByZero_0) {
     ASSERT_EQ(R, R0) << "Matrix multiplication-by-zero test failed! :((((";
 }
 
+// Test: multiplication of a 3x3 random matrix by a 3x3 zero matrix
+// Expected result: 3x3 zero matrix 
 TEST(MatrixMultiplicationTest, TestMultiplyMatrixByZero_1) {
     int nr_A = 3;
     int nc_A = 3;
@@ -136,7 +112,8 @@ std::vector<std::vector<int>> A = generateRandomMatrix(nr_A, nc_A);
     ASSERT_EQ(R, R0) << "Matrix multiplication-by-zero test failed! :((((";
 }
 
-
+// Test: multiplication of a 2x2 random matrix by a 2x2 identity matrix
+// Expected result: equal as the first matrix
 TEST(MatrixMultiplicationTest, TestMultiplyMatrixByIdentity_0) {
     int nr_A = 2;
 
@@ -149,7 +126,8 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrixByIdentity_0) {
     ASSERT_EQ(R, A) << "Matrix multiplication-by-zero test (0) failed! :((((";
 }
 
-
+// Test: multiplication of a 5x5 random matrix by a 5x5 identity matrix
+// Expected result: equal as the first matrix
 TEST(MatrixMultiplicationTest, TestMultiplyMatrixByIdentity_1) {
     int nr_A = 5;
 
@@ -162,7 +140,8 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrixByIdentity_1) {
     ASSERT_EQ(R, A) << "Matrix multiplication-by-zero test (1) failed! :((((";
 }
 
-
+// Test: multiplication of a 2x2 identity matrix by a 2x2 random matrix
+// Expected result: equal as the second matrix
 TEST(MatrixMultiplicationTest, TestMultiplyIdentityByMatrix_0) {
     int nr_A = 2;
 
@@ -175,7 +154,8 @@ TEST(MatrixMultiplicationTest, TestMultiplyIdentityByMatrix_0) {
     ASSERT_EQ(R, A) << "Matrix multiplication-by-identity test (0) failed! :((((";
 }
 
-
+// Test: multiplication of a 5x5 identity matrix by a 5x5 random matrix
+// Expected result: equal as the second matrix
 TEST(MatrixMultiplicationTest, TestMultiplyIdentityByMatrix_1) {
     int nr_A = 5;
 
@@ -188,6 +168,11 @@ TEST(MatrixMultiplicationTest, TestMultiplyIdentityByMatrix_1) {
     ASSERT_EQ(R, A) << "Matrix multiplication-by-identity test (1) failed! :((((";
 }
 
+// Test: multiplication of A * B * C
+// where A: 3x4 random matrix
+//       B: 4x5 random matrix
+//       C: 5x4 random matrix
+// Expected result: associative property holds, i.e. (A*B)*C = A*(B*C) 
 TEST(MatrixMultiplicationTest, TestMultiplyMatrixAssociativeProp_0) {
     int nr_A = 3;
     int nc_A = 4;
@@ -210,7 +195,11 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrixAssociativeProp_0) {
     ASSERT_EQ(R1, R2) << "Matrix multiplication-associative property test (0) failed! :((((";
 }
 
-
+// Test: multiplication of A * B * C
+// where A: 5x7 random matrix
+//       B: 7x4 random matrix
+//       C: 4x6 random matrix
+// Expected result: associative property holds, i.e. (A*B)*C = A*(B*C) 
 TEST(MatrixMultiplicationTest, TestMultiplyMatrixAssociativeProp_1) {
     int nr_A = 5;
     int nc_A = 7;
@@ -236,7 +225,7 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrixAssociativeProp_1) {
 
 
 
-
+// main
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
