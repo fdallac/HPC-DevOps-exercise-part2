@@ -11,6 +11,8 @@ jobs:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "The job is running on a ${{ runner.os }} server hosted by GitHub."
       - uses: actions/checkout@v2
+        with:
+            submodules: recursive
       - name: Setup CMake
         uses: jwlawson/actions-setup-cmake@v1
       - name: Setup MPI
