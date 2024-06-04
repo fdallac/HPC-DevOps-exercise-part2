@@ -1,6 +1,16 @@
 Bootstrap: docker
 From: ubuntu:18.04
 
+%files
+    matrixA.txt /cnt/matrixA.txt
+    matrixB.txt /cnt/matrixB.txt
+    CMakeLists.txt /cnt/CMakeLists.txt
+    ./src /cnt/src
+    ./include /cnt/include
+    ./lib /cnt/lib
+    ./googletest /cnt/googletest
+    ./test /cnt/test
+
 %post
     apt-get update && 
     apt-get upgrade -y && 
@@ -11,27 +21,17 @@ From: ubuntu:18.04
     apt-get clean -y
 
     # build
+    cd cnt
     mkdir -p build && cd build
     cmake ..
     cmake --build .
+    cd ..
     
-
-%files
-    matrixA.txt
-    matrixB.txt
-    CMakeLists.txt
-    build.sh
-    ./src /src
-    ./include /include
-    ./lib /lib
-    ./googletest /googletest
-    ./test /test
-
-
 %runscript
     echo "Container was created."
     
     # test
+    cd cnt
     build/test_multiplication
     # # main
     # mpirun -np 2 main

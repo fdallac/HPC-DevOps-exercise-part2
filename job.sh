@@ -11,4 +11,4 @@ module load singularity
 export TMPDIR=$HOME/tmp
 mkdir -p $TMPDIR
 
-singularity exec --bind $TMPDIR:$TMPDIR  matrix-mult.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 main"
+singularity exec --bind $TMPDIR:$TMPDIR  matrix-mult.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 cnt/build/main"
