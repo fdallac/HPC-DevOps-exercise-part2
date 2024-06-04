@@ -4,7 +4,7 @@ on:
   push:
     branches: [ $default-branch ]
 jobs:
-  Test-on-Push:
+  test-on-push:
     runs-on: ubuntu-latest
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
