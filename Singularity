@@ -28,8 +28,8 @@ From: ubuntu:18.04
     build.sh
     # test
     build/test_multiplication
-    # main
-    mpirun -np 2 main
+    # # main
+    # mpirun -np 2 main
 
 
 # %test

@@ -51,18 +51,15 @@ jobs:
           sudo dpkg -i singularity-ce_${SINGULARITY_VERSION}-jammy_amd64.deb
 
       - name: Create the singularity container from the def file
-        run: singularity build --fakeroot matrix-multiplication.sif Singularity
+        run: singularity build --fakeroot matrix-mult.sif Singularity
 
       - name: Upload SIF container
         uses: actions/upload-artifact@v4.3.3
         with:
           name: singularity-container
-          path: matrix-multiplication.sif
+          path: matrix-mult.sif
           if-no-files-found: error
-          # compression-level: 9
           overwrite: true
-
-
 
 
 
@@ -72,17 +69,13 @@ jobs:
 
     strategy:
       fail-fast: false
-      # matrix:
-      #   recipe: ["Singularity"]
-
 
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "The job is running on a ${{ runner.os }} server hosted by GitHub."
-      - uses: actions/checkout@v2
-        # with:
-        #     submodules: recursive
 
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Download SIF container
         uses: actions/download-artifact@v4.1.7
@@ -93,7 +86,7 @@ jobs:
       - name: Prepare the zip file to send
         run: |
           sudo apt install zip && \
-          zip -9 -r matrix_mult_exec.zip matrixA.txt matrixB.txt matrix-multiplication.sif 
+          zip -9 -r matrix_mult_exec.zip matrixA.txt matrixB.txt matrix-mult.sif 
 
       - name: Send files to the cluster
         env:
@@ -124,7 +117,7 @@ jobs:
         env:
           SSH_CINECA_CLUSTER: ${{ secrets.CINECA_USERNAME }}@${{ secrets.CINECA_HOST }}
         run: |
-          sleep 30
+          sleep 15
           sshpass -f ./psw.txt rsync -PravzHS -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" $SSH_CINECA_CLUSTER:output.log .
           sshpass -f ./psw.txt rsync -PravzHS -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" $SSH_CINECA_CLUSTER:errors.log .
       

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=matrixMultiplication
+#SBATCH --job-name=matrixmult
 #SBATCH --nodes=1
 #SBATCH --time=01:00
 #SBATCH --ntasks=2
@@ -11,4 +11,4 @@ module load singularity
 export TMPDIR=$HOME/tmp
 mkdir -p $TMPDIR
 
-singularity exec --bind $TMPDIR:$TMPDIR  matrix-multiplication.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 main"
+singularity exec --bind $TMPDIR:$TMPDIR  matrix-mult.sif bash -c "export OMPI_MCA_tmpdir_base=$TMPDIR && mpirun -np 2 main"
