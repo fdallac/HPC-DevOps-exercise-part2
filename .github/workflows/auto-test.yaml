@@ -1,11 +1,11 @@
 name: Automated testing on push by Github Actions
-run-name: ${{ github.actor}} is testing matrix multiplication...
+run-name: ${{ github.actor }} is testing matrix multiplication...
 on: 
   push:
     branches:
       - main
 jobs:
-  build-test-container-on-push:
+  build-test-on-push:
     runs-on: ubuntu-latest
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
@@ -17,12 +17,12 @@ jobs:
         uses: jwlawson/actions-setup-cmake@v1
       - name: Setup MPI
         uses: mpi4py/setup-mpi@v1
-      - name: Create folder
+      - name: Create Folder
         run: mkdir -p build
       - name: Configure CMake
         run: cmake -B ${{ github.workspace }}/build
-      - name: CMake build
+      - name: CMake Build
         run: cmake --build ${{ github.workspace }}/build
-      - name: Run unit tests
+      - name: Run Unit Tests
         working-directory: ${{ github.workspace }}/build
         run: ./test_multiplication
