@@ -2,7 +2,8 @@ name: Automated testing on push by Github Actions
 run-name: ${{ github.actor}} is testing matrix multiplication...
 on: 
   push:
-    branches: [ $default-branch ]
+    branches:
+      - main
 jobs:
   test-on-push:
     runs-on: ubuntu-latest
