@@ -1,5 +1,5 @@
 name: Automated testing on push by Github Actions
-run-name: ${{ github.actor }} is testing matrix multiplication...
+run-name: ${{ github.actor }} is testing matrix multiplication inside a container...
 on: 
   push:
     branches:

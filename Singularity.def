@@ -16,7 +16,7 @@ From: ubuntu:18.04
 %files
     matrixA.txt
     matrixB.txt
-    CMakeList.txt
+    CMakeLists.txt
     build.sh
     src/ src/
     include/ include/
