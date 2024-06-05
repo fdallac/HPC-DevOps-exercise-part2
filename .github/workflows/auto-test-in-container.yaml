@@ -14,19 +14,12 @@ env:
 jobs:
   build-and-push-docker-image:
     runs-on: ubuntu-latest
-    container:
-      image: quay.io/singularity/singularity:v3.8.3
-    strategy:
-      fail-fast: false
-      matrix:
-        recipe: ["Singularity"]
-
 
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "The job is running on a ${{ runner.os }} server hosted by GitHub."
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
             submodules: recursive
 
