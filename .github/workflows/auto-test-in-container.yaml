@@ -64,6 +64,7 @@ jobs:
 
 
   run-docker-container-to-test:
+    needs: build-and-push-docker-image
     runs-on: ubuntu-latest
     container:
       image:  ghcr.io/fdallac/HPC-DevOps-exercise-part2 #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
