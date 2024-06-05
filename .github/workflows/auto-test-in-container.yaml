@@ -74,11 +74,18 @@ jobs:
       
     steps:
 
-      - name: Run docker image
+      - name: Run Docker Image
         uses: addnab/docker-run-action@v3
         with:
           image: ghcr.io/fdallac/hpc-devops-exercise-part2:main # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}} 
-          run: ./build/test_multiplication
+          run: ./build/test_multiplication > test.log
+
+      - name: Export Test Log
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: test
+          path: test.log
+
 
 
   # run-docker-container-to-test:
