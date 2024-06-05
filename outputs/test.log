@@ -1,0 +1,87 @@
+Unable to find image 'ghcr.io/fdallac/hpc-devops-exercise-part2:main' locally
+main: Pulling from fdallac/hpc-devops-exercise-part2
+c83baea2d576: Pulling fs layer
+df25f6b9f879: Pulling fs layer
+8708191f8d86: Pulling fs layer
+46a7a8b74202: Pulling fs layer
+09db484965ff: Pulling fs layer
+b6c34a2f3c04: Pulling fs layer
+c0ef6fafea43: Pulling fs layer
+b1a57ef93449: Pulling fs layer
+49ff7eda1e40: Pulling fs layer
+3359585195ad: Pulling fs layer
+51f613f088a1: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+46a7a8b74202: Waiting
+09db484965ff: Waiting
+b6c34a2f3c04: Waiting
+c0ef6fafea43: Waiting
+51f613f088a1: Waiting
+b1a57ef93449: Waiting
+4f4fb700ef54: Waiting
+49ff7eda1e40: Waiting
+3359585195ad: Waiting
+8708191f8d86: Verifying Checksum
+8708191f8d86: Download complete
+c83baea2d576: Verifying Checksum
+c83baea2d576: Download complete
+46a7a8b74202: Verifying Checksum
+46a7a8b74202: Download complete
+b6c34a2f3c04: Verifying Checksum
+b6c34a2f3c04: Download complete
+09db484965ff: Verifying Checksum
+09db484965ff: Download complete
+b1a57ef93449: Verifying Checksum
+b1a57ef93449: Download complete
+c0ef6fafea43: Verifying Checksum
+c0ef6fafea43: Download complete
+3359585195ad: Verifying Checksum
+3359585195ad: Download complete
+49ff7eda1e40: Verifying Checksum
+49ff7eda1e40: Download complete
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+51f613f088a1: Verifying Checksum
+51f613f088a1: Download complete
+c83baea2d576: Pull complete
+df25f6b9f879: Verifying Checksum
+df25f6b9f879: Download complete
+df25f6b9f879: Pull complete
+8708191f8d86: Pull complete
+46a7a8b74202: Pull complete
+09db484965ff: Pull complete
+b6c34a2f3c04: Pull complete
+c0ef6fafea43: Pull complete
+b1a57ef93449: Pull complete
+49ff7eda1e40: Pull complete
+3359585195ad: Pull complete
+51f613f088a1: Pull complete
+4f4fb700ef54: Pull complete
+Digest: sha256:1bb46f2d35a8bdc4fdd4a423b258ced14f474f3dc5f5c7b24a8102ff3c3b2d42
+Status: Downloaded newer image for ghcr.io/fdallac/hpc-devops-exercise-part2:main
+[==========] Running 9 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 9 tests from MatrixMultiplicationTest
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyMatrices
+[       OK ] MatrixMultiplicationTest.TestMultiplyMatrices (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyMatrixByZero_0
+[       OK ] MatrixMultiplicationTest.TestMultiplyMatrixByZero_0 (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyMatrixByZero_1
+[       OK ] MatrixMultiplicationTest.TestMultiplyMatrixByZero_1 (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyMatrixByIdentity_0
+[       OK ] MatrixMultiplicationTest.TestMultiplyMatrixByIdentity_0 (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyMatrixByIdentity_1
+[       OK ] MatrixMultiplicationTest.TestMultiplyMatrixByIdentity_1 (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyIdentityByMatrix_0
+[       OK ] MatrixMultiplicationTest.TestMultiplyIdentityByMatrix_0 (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyIdentityByMatrix_1
+[       OK ] MatrixMultiplicationTest.TestMultiplyIdentityByMatrix_1 (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyMatrixAssociativeProp_0
+[       OK ] MatrixMultiplicationTest.TestMultiplyMatrixAssociativeProp_0 (0 ms)
+[ RUN      ] MatrixMultiplicationTest.TestMultiplyMatrixAssociativeProp_1
+[       OK ] MatrixMultiplicationTest.TestMultiplyMatrixAssociativeProp_1 (0 ms)
+[----------] 9 tests from MatrixMultiplicationTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 9 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 9 tests.
