@@ -50,7 +50,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: user/app:latest #${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
 
@@ -67,7 +67,7 @@ jobs:
     needs: build-and-push-docker-image
     runs-on: ubuntu-latest
     container:
-      image:  ghcr.io/fdallac/hpc-devops-exercise-part2 #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+      image:  ghcr.io/fdallac/hpc-devops-exercise-part2:main #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
