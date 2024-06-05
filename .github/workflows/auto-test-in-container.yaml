@@ -57,7 +57,7 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
 
@@ -71,13 +71,14 @@ jobs:
 
       - name: Run Docker Image
         run: |
-          docker run --rm  ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          export IMAGE_NAME_FULL=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          docker run --rm  ${IMAGE_NAME_FULL,,}
           
           
       # ghcr.io/fdallac/hpc-devops-exercise-part2:main > test.log 2>&1
 
-      - name: Export Test Log
-        uses: actions/upload-artifact@v2
-        with:
-          name: test
-          path: test.log
+      # - name: Export Test Log
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: test
+      #     path: test.log
