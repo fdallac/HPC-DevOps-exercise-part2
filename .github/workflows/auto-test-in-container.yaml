@@ -63,7 +63,7 @@ jobs:
 
 
 
-  run-docker-container-to-test:
+  run-docker-container-test:
     needs: build-and-push-docker-image
     runs-on: ubuntu-latest
     container:
@@ -74,8 +74,26 @@ jobs:
       
     steps:
 
-      - run: echo "Hello world"
-      - run: ls
+      - name: Run docker image
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/fdallac/hpc-devops-exercise-part2:main
+          run: echo "hello world"
+
+
+  # run-docker-container-to-test:
+  #   needs: build-and-push-docker-image
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image:  ghcr.io/fdallac/hpc-devops-exercise-part2:main #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+  #     credentials:
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+      
+  #   steps:
+
+  #     - run: echo "Hello world"
+  #     - run: ls
 
 
 
