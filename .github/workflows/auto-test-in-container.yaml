@@ -78,7 +78,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ghcr.io/fdallac/hpc-devops-exercise-part2:main # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}} 
-          #run: echo "hello world"
+          run: ./build/test_multiplication
 
 
   # run-docker-container-to-test:
