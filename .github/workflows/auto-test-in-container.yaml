@@ -66,100 +66,18 @@ jobs:
   run-docker-container-test:
     needs: build-and-push-docker-image
     runs-on: ubuntu-latest
-    # container:
-    #   image:  ghcr.io/fdallac/hpc-devops-exercise-part2:main #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
-    #   credentials:
-    #     username: ${{ github.actor }}
-    #     password: ${{ secrets.GITHUB_TOKEN }}
       
     steps:
 
       - name: Run Docker Image
         run: |
-          docker run --rm ghcr.io/fdallac/hpc-devops-exercise-part2:main > test.log 2>&1
-
-      # - name: Run Docker Image
-      #   uses: addnab/docker-run-action@v3
-      #   with:
-      #     image: ghcr.io/fdallac/hpc-devops-exercise-part2:main # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}} 
-      #     run: ./build/test_multiplication # > test.log
-
+          docker run --rm  ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          
+          
+      # ghcr.io/fdallac/hpc-devops-exercise-part2:main > test.log 2>&1
 
       - name: Export Test Log
         uses: actions/upload-artifact@v2
         with:
           name: test
           path: test.log
-
-
-
-  # run-docker-container-to-test:
-  #   needs: build-and-push-docker-image
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image:  ghcr.io/fdallac/hpc-devops-exercise-part2:main #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
-  #     credentials:
-  #       username: ${{ github.actor }}
-  #       password: ${{ secrets.GITHUB_TOKEN }}
-      
-  #   steps:
-
-  #     - run: echo "Hello world"
-  #     - run: ls
-
-
-
-
-      # - name: Check if Singularity Recipe Exists
-      #   run: |
-      #     if [[ -f "${{ matrix.recipe }}" ]]; then
-      #       echo "keepgoing=true" >> $GITHUB_ENV
-      #     fi  
-
-
-      # - name: Build Container
-      #   if: ${{ env.keepgoing == 'true' }}
-      #   env:
-      #       recipe: ${{ matrix.recipe }}
-      #   run: |
-      #     ls 
-      #     if [ -f "${{ matrix.recipe }}" ]; then
-      #       singularity build matrix-mult.sif ${{ matrix.recipe }}
-      #       tag=$(echo "${recipe/Singularity\./}")
-      #       if [ "$tag" == "Singularity" ]; then
-      #           tag=latest
-      #       fi
-      #       # Build the container and name by tag
-      #       echo "Tag is $tag."
-      #       echo "tag=$tag" >> $GITHUB_ENV
-      #     else
-      #       echo "${{ matrix.recipe }} is not found."
-      #       echo "Present working directory: $PWD"
-      #       ls
-      #     fi
-
-
-      # - name: Login and Deploy Container
-      #   env:
-      #     keepgoing: ${{ env.keepgoing }}
-      #   run: |
-      #       if [[ "${keepgoing}" == "true" ]]; then
-      #           echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin docker://ghcr.io 
-      #           singularity push matrix-mult.sif docker://ghcr.io/${GITHUB_REPOSITORY}:${tag}
-      #       fi
-
-    
-      # - name: Setup CMake
-      #   uses: jwlawson/actions-setup-cmake@v1
-      # - name: Setup MPI
-      #   uses: mpi4py/setup-mpi@v1
-      # - name: Create folder
-      #   run: mkdir -p build
-      # - name: Configure CMake
-      #   run: cmake -B ${{ github.workspace }}/build
-      # - name: CMake build
-      #   run: cmake --build ${{ github.workspace }}/build
-      # - name: Run unit tests
-      #   working-directory: ${{ github.workspace }}/build
-      #   run: ./test_multiplication
-      #
