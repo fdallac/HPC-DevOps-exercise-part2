@@ -34,14 +34,5 @@ From: debian:bookworm-slim
     cd cnt
     # run test
     build/test_multiplication
-    # # main
+    # main
     # mpirun -np 2 main
-
-
-# %test
-#     grep -q NAME=\"Ubuntu\" /etc/os-release
-#     if [ $? -eq 0 ]; then
-#         echo "Container base is Ubuntu as expected."
-#     else
-#         echo "Container base is not Ubuntu."
-#     fi
