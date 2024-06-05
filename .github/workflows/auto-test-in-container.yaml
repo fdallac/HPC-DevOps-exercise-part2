@@ -29,7 +29,7 @@ jobs:
             submodules: recursive
 
 
-      - name: Log in to the Container registry
+      - name: Log in to the Container Registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
           registry: ${{ env.REGISTRY }}
@@ -75,16 +75,21 @@ jobs:
     steps:
 
       - name: Run Docker Image
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ghcr.io/fdallac/hpc-devops-exercise-part2:main # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}} 
-          run: ./build/test_multiplication > test.log
+        run: |
+          docker run --rm ghcr.io/fdallac/hpc-devops-exercise-part2:main
 
-      - name: Export Test Log
-        uses: actions/upload-artifact@v4.3.3
-        with:
-          name: test
-          path: test.log
+      # - name: Run Docker Image
+      #   uses: addnab/docker-run-action@v3
+      #   with:
+      #     image: ghcr.io/fdallac/hpc-devops-exercise-part2:main # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}} 
+      #     run: ./build/test_multiplication # > test.log
+
+
+      # - name: Export Test Log
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: test
+      #     path: test.log
 
 
 
