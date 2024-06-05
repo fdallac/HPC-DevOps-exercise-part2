@@ -1,10 +1,10 @@
 # Brief description of CI/CD Github Actions Workflows
 
-**- auto-test.yaml**: Simple CI/CD workflow for building the executable (using CMake) and running the Unit Tests defined in "test\test_matrix_multiplication.cpp"
+- **auto-test.yaml**: Simple CI/CD workflow for building the executable (using CMake) and running the Unit Tests defined in "test\test_matrix_multiplication.cpp"
 
-**- auto-test-in-container.yaml**: CI/CD workflow for building a Docker image (from the Dockerfile in the repo) and push the image in Github Container Registry, generating a package and the artifact attestation. Then the Docker image is runned in order to launch Unit Tests, which are written in a test.log artifact (see an example in "outputs" folder)
+- **auto-test-in-container.yaml**: CI/CD workflow for building a Docker image (from the Dockerfile in the repo) and push the image in Github Container Registry, generating a package and the artifact attestation. Then the Docker image is runned in order to launch Unit Tests, which are written in a test.log artifact (see an example in "outputs" folder)
 
-**- auto-test-container-on-cineca-cluster.yaml**: CI/CD workflow for building a Singularity container (from the Singularity file in the repo), deploy it into the CINECA cluster (Galileo100) and run the container. Output and error logs are then upload as artifacts (see examples in "outputs" folder)
+- **auto-test-container-on-cineca-cluster.yaml**: CI/CD workflow for building a Singularity container (from the Singularity file in the repo), deploy it into the CINECA cluster (Galileo100) and run the container. Output and error logs are then upload as artifacts (see examples in "outputs" folder)
 
 
 ---
