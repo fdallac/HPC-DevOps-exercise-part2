@@ -66,11 +66,11 @@ jobs:
   run-docker-container-test:
     needs: build-and-push-docker-image
     runs-on: ubuntu-latest
-    container:
-      image:  ghcr.io/fdallac/hpc-devops-exercise-part2:main #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+    # container:
+    #   image:  ghcr.io/fdallac/hpc-devops-exercise-part2:main #${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+    #   credentials:
+    #     username: ${{ github.actor }}
+    #     password: ${{ secrets.GITHUB_TOKEN }}
       
     steps:
 
