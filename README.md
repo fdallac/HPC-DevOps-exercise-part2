@@ -1,5 +1,18 @@
 # SE4HPCproject
 
+## Brief description of CI/CD Github Actions Workflows
+
+**auto-test.yaml**
+Simple workflow for building the executable (using CMake) and running the Unit Tests defined in "test\test_matrix_multiplication.cpp"
+
+**auto-test-in-container.yaml**
+
+
+**auto-test-container-on-cineca-cluster.yaml**
+
+
+
+
 ## Step 2 -- From build to release and manual job execution 
 
 Focus now on the correct implementation of the matrix multiplication you
