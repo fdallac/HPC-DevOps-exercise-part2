@@ -62,6 +62,23 @@ jobs:
           push-to-registry: true
 
 
+
+  run-docker-container-to-test:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+      
+      steps:
+
+      - run: echo "Hello world"
+      - run: ls
+
+
+
+
       # - name: Check if Singularity Recipe Exists
       #   run: |
       #     if [[ -f "${{ matrix.recipe }}" ]]; then
