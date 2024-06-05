@@ -1,15 +1,21 @@
 name: Build Container, Deploy and Automate Testing
-run-name: ${{ github.actor }} is testing matrix multiplication inside a container...
+run-name: ${{ github.actor }} is testing matrix multiplication inside a Docker container...
+
 on: 
   push:
     branches:
       - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+
 jobs:
-  build-test-container-on-push:
+  build-and-push-docker-image:
     runs-on: ubuntu-latest
     container:
       image: quay.io/singularity/singularity:v3.8.3
-      options: --privilaged
     strategy:
       fail-fast: false
       matrix:
@@ -19,48 +25,82 @@ jobs:
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "The job is running on a ${{ runner.os }} server hosted by GitHub."
+
       - uses: actions/checkout@v2
         with:
             submodules: recursive
 
 
-      - name: Check if Singularity Recipe Exists
-        run: |
-          if [[ -f "${{ matrix.recipe }}" ]]; then
-            echo "keepgoing=true" >> $GITHUB_ENV
-          fi  
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
 
-      - name: Build Container
-        if: ${{ env.keepgoing == 'true' }}
-        env:
-            recipe: ${{ matrix.recipe }}
-        run: |
-          ls 
-          if [ -f "${{ matrix.recipe }}" ]; then
-            singularity build matrix-mult.sif ${{ matrix.recipe }}
-            tag=$(echo "${recipe/Singularity\./}")
-            if [ "$tag" == "Singularity" ]; then
-                tag=latest
-            fi
-            # Build the container and name by tag
-            echo "Tag is $tag."
-            echo "tag=$tag" >> $GITHUB_ENV
-          else
-            echo "${{ matrix.recipe }} is not found."
-            echo "Present working directory: $PWD"
-            ls
-          fi
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
 
-      - name: Login and Deploy Container
-        env:
-          keepgoing: ${{ env.keepgoing }}
-        run: |
-            if [[ "${keepgoing}" == "true" ]]; then
-                echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin docker://ghcr.io 
-                singularity push matrix-mult.sif docker://ghcr.io/${GITHUB_REPOSITORY}:${tag}
-            fi
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+
+      # - name: Check if Singularity Recipe Exists
+      #   run: |
+      #     if [[ -f "${{ matrix.recipe }}" ]]; then
+      #       echo "keepgoing=true" >> $GITHUB_ENV
+      #     fi  
+
+
+      # - name: Build Container
+      #   if: ${{ env.keepgoing == 'true' }}
+      #   env:
+      #       recipe: ${{ matrix.recipe }}
+      #   run: |
+      #     ls 
+      #     if [ -f "${{ matrix.recipe }}" ]; then
+      #       singularity build matrix-mult.sif ${{ matrix.recipe }}
+      #       tag=$(echo "${recipe/Singularity\./}")
+      #       if [ "$tag" == "Singularity" ]; then
+      #           tag=latest
+      #       fi
+      #       # Build the container and name by tag
+      #       echo "Tag is $tag."
+      #       echo "tag=$tag" >> $GITHUB_ENV
+      #     else
+      #       echo "${{ matrix.recipe }} is not found."
+      #       echo "Present working directory: $PWD"
+      #       ls
+      #     fi
+
+
+      # - name: Login and Deploy Container
+      #   env:
+      #     keepgoing: ${{ env.keepgoing }}
+      #   run: |
+      #       if [[ "${keepgoing}" == "true" ]]; then
+      #           echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin docker://ghcr.io 
+      #           singularity push matrix-mult.sif docker://ghcr.io/${GITHUB_REPOSITORY}:${tag}
+      #       fi
 
     
       # - name: Setup CMake
