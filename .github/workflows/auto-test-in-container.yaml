@@ -17,6 +17,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      attestations: write
+      id-token: write
 
     steps:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
