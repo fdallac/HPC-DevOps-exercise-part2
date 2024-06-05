@@ -71,10 +71,10 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
       
-      steps:
+    steps:
 
-        - run: echo "Hello world"
-        - run: ls
+      - run: echo "Hello world"
+      - run: ls
 
 
 
